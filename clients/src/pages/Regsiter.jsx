@@ -2,9 +2,8 @@ import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { GoogleLogin } from "react-google-login"
 import { gapi } from "gapi-script"
-import { useEffect } from 'react'
+import { useEffect , useState } from 'react'
 import { googleAuth, registerUser } from '../apis/auth'
-import { useState } from 'react'
 import { BsEmojiLaughing, BsEmojiExpressionless } from "react-icons/bs"
 import { toast } from 'react-toastify';
 import { validUser } from '../apis/auth'
@@ -27,8 +26,6 @@ function Regsiter() {
     setIsLoading(true)
     if (formData.email.includes("@") && formData.password.length > 6) {
       const  { data }  = await registerUser(formData)
-    
-      console.log(data)
       if (data?.token) {
         localStorage.setItem("userToken", data.token)
         toast.success("Succesfully Registered😍")
@@ -38,7 +35,7 @@ function Regsiter() {
       }
       else {
         setIsLoading(false)
-        toast.error("Invalid Credentials!")
+        toast.error(data?.message || "Invalid Credentials!")
       }
     }
     else {

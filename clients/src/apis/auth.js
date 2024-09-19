@@ -10,7 +10,8 @@ export const loginUser = async (body) => {
   try {
     return await axios.post(`${url}/auth/login`, body);
   } catch (error) {
-    console.log('error in loginuser api');
+    console.log(error);
+    return error.response
   }
 };
 export const googleAuth = async (body) => {
@@ -18,14 +19,15 @@ export const googleAuth = async (body) => {
     return await axios.post(`${url}/api/google`, body);
   } catch (error) {
     console.log(error);
+    return error.response.data
   }
 };
 export const registerUser = async (body) => {
   try {
     return await axios.post(`${url}/auth/register`, body);
   } catch (error) {
-    console.log('error in register api');
-    return error
+    console.log(error);
+    return error.response.data
   }
 };
 export const validUser = async () => {
